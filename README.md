@@ -1,5 +1,1 @@
 # CNCF Demo
-
-## Requirements
-
-## 
