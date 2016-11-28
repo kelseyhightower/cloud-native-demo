@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: zipkin
+  labels:
+    k8s-app: zipkin
+    version: v1.16.1
+  namespace: kube-system
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zipkin
+        k8s-app: zipkin
+        version: v1.16.1
+    spec:
+      containers:
+        - name: zipkin
+          image: "openzipkin/zipkin:1.16.1"

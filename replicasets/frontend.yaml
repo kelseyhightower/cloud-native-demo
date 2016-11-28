@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: "kelseyhightower/frontend:1.0.0"
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          args:
+            - "--advertised-ip=$(POD_IP)"
+            - "--backend=http://backend:80"
+            - "--listen-ip=0.0.0.0"
+            - "--listen-port=80"
+            - "--zipkin=http://zipkin.kube-system.svc.cluster.local:9411/api/v1/spans"
